@@ -1,0 +1,15 @@
+:root {
+  --purple: #3b0062;
+  --yellow: #fab83f;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
