@@ -11,11 +11,12 @@
 .card-fig {
   margin: 0;
   position: relative;
+  height: 240px;
 }
 
 .card-image {
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -47,8 +48,15 @@
   .card:first-child {
     grid-column: span 2;
   }
+  .card:first-child .card-fig {
+    height: 340px;
+  }
 
   .card:nth-child(2) {
-    grid-column: span 2;
+    grid-column: span 1;
+  }
+
+  .card:nth-child(2) .card-fig {
+    height: 340px;
   }
 }
