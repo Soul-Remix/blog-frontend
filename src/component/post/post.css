@@ -1,0 +1,66 @@
+.post-container {
+  padding: 25px;
+}
+
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.post-fig {
+  position: relative;
+  margin: 0;
+}
+
+.post-image {
+  height: 350px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.post-header {
+  font-size: 2rem;
+  margin-top: 0;
+  text-align: center;
+}
+
+.post-by {
+  text-align: center;
+}
+
+.post-author {
+  color: #ff1261;
+}
+
+hr {
+  opacity: 0.5;
+}
+
+.post-body {
+  text-align: center;
+  margin: 15px auto;
+  max-width: 80ch;
+  line-height: 1.5;
+  font-size: calc(14px + 2 * ((100vw - 320px) / 960));
+  grid-column: 1/-1;
+}
+
+@media screen and (min-width: 1024px) {
+  .post-image {
+    height: 450px;
+  }
+
+  .post-header {
+    margin-top: 20px;
+  }
+
+  .post-body {
+    grid-column: 3/11;
+  }
+}
+
+@media screen and (min-width: 1460px) {
+  .post-body {
+    grid-column: 4/10;
+  }
+}

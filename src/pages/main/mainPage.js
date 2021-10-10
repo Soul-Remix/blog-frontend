@@ -30,7 +30,7 @@ const MainPage = () => {
     if (data) {
       setPosts((old) => old.concat(data.posts));
     }
-  }, [data]);
+  }, [, page]);
 
   if (isLoading) {
     return (
@@ -52,6 +52,7 @@ const MainPage = () => {
           title={x.title}
           image={x.image}
           comments={x.comments}
+          id={x._id}
           key={x._id}
         />
       );

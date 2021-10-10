@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 import './card.css';
 
-const Card = ({ title, image, comments }) => {
+const Card = ({ title, image, comments, id }) => {
   return (
-    <Link to={`/posts/${title}`} className="card">
+    <Link to={`/post/${id}`} className="card">
       <figure className="card-fig">
         <img
           src={'https://guarded-bayou-18266.herokuapp.com/' + image}
