@@ -8,7 +8,7 @@ const Card = ({ title, image, comments }) => {
     <Link to={`/posts/${title}`} className="card">
       <figure className="card-fig">
         <img
-          src={'https://guarded-bayou-18266.herokuapp.com' + '/' + image}
+          src={'https://guarded-bayou-18266.herokuapp.com/' + image}
           alt={title}
           className="card-image"
         />

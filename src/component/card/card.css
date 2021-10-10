@@ -4,7 +4,9 @@
   text-decoration: none;
 }
 
-.card:hover .card-title {
+.card:hover .card-title,
+.card:focus .card-title,
+.card:active .card-title {
   color: #ff1261;
 }
 
@@ -53,7 +55,7 @@
   }
 
   .card:nth-child(2) {
-    grid-column: span 1;
+    grid-column: span 2;
   }
 
   .card:nth-child(2) .card-fig {
