@@ -1,0 +1,54 @@
+.card {
+  display: flex;
+  flex-flow: column wrap;
+  text-decoration: none;
+}
+
+.card:hover .card-title {
+  color: #ff1261;
+}
+
+.card-fig {
+  margin: 0;
+  position: relative;
+}
+
+.card-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.symbol-comments {
+  fill: white;
+  height: 1em;
+  width: 1em;
+  padding-right: 3px;
+}
+
+.card-comments {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.card-title {
+  text-decoration: none;
+  font-size: 1.1rem;
+  color: black;
+  margin: 5px;
+  text-align: center;
+}
+
+@media screen and (min-width: 1024px) {
+  .card:first-child {
+    grid-column: span 2;
+  }
+
+  .card:nth-child(2) {
+    grid-column: span 2;
+  }
+}
