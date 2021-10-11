@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 
@@ -20,8 +20,13 @@ const fetchPosts = async (id) => {
 
 const PostPage = () => {
   const { id } = useParams();
-  const { isLoading, isError, data, error } = useQuery(`${id}`, () =>
-    fetchPosts(id)
+  const { isLoading, isError, data, error } = useQuery(
+    `${id}`,
+    () => fetchPosts(id),
+    {
+      refetchOnWindowFocus: false,
+      staleTime: 10000,
+    }
   );
 
   if (isLoading) {

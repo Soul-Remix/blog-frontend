@@ -7,8 +7,12 @@ import './post.css';
 const Post = ({ data }) => {
   const { title, description, image, author, createdAt } = data;
   const body = description.split('\\n');
-  const bodyArr = body.map((x) => {
-    return <p className="post-body">{x}</p>;
+  const bodyArr = body.map((x, i) => {
+    return (
+      <p key={i} className="post-body">
+        {x}
+      </p>
+    );
   });
   return (
     <div className="post-container">

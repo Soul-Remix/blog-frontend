@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useQuery, useInfiniteQuery } from 'react-query';
+import React from 'react';
+import { useInfiniteQuery } from 'react-query';
 
 import Card from '../../component/card/card';
 import Loader from '../../component/loader/loader';
