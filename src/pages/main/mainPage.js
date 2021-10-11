@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, useInfiniteQuery } from 'react-query';
 
 import Card from '../../component/card/card';
 import Loader from '../../component/loader/loader';
 
 import './mainPage.css';
 
-const fetchPosts = async (pageNum) => {
+const fetchPosts = async ({ pageParam = 1 }) => {
   try {
     const res = await fetch(
-      `https://guarded-bayou-18266.herokuapp.com/api/v1/posts?page=${pageNum}`
+      `https://guarded-bayou-18266.herokuapp.com/api/v1/posts?page=${pageParam}`
     );
     return await res.json();
   } catch (err) {
@@ -18,19 +18,11 @@ const fetchPosts = async (pageNum) => {
 };
 
 const MainPage = () => {
-  const [page, setPage] = useState(1);
-  const [posts, setPosts] = useState([]);
-  const { isLoading, isError, data, error } = useQuery(
-    ['posts', page],
-    () => fetchPosts(page),
-    { keepPreviousData: true }
-  );
-
-  useEffect(() => {
-    if (data) {
-      setPosts((old) => old.concat(data.posts));
-    }
-  }, [, page]);
+  const { data, error, isLoading, isError, fetchNextPage, hasNextPage } =
+    useInfiniteQuery('posts', fetchPosts, {
+      getNextPageParam: (lastPage) =>
+        lastPage.hasNextPage ? lastPage.nextPage : false,
+    });
 
   if (isLoading) {
     return (
@@ -45,26 +37,24 @@ const MainPage = () => {
   }
 
   if (data) {
-    const hasMore = data.totalItems / 10 > page;
-    const postsArr = posts.map((x) => {
-      return (
-        <Card
-          title={x.title}
-          image={x.image}
-          comments={x.comments}
-          id={x._id}
-          key={x._id}
-        />
-      );
+    const postsArr = data.pages.map((page) => {
+      return page.posts.map((x) => {
+        return (
+          <Card
+            title={x.title}
+            image={x.image}
+            comments={x.comments}
+            id={x._id}
+            key={x._id}
+          />
+        );
+      });
     });
     return (
       <div className="container">
         {postsArr}
-        {hasMore && (
-          <button
-            className="more-button"
-            onClick={() => setPage((old) => (old += 1))}
-          >
+        {hasNextPage && (
+          <button className="more-button" onClick={() => fetchNextPage()}>
             Load More
           </button>
         )}
