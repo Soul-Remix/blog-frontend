@@ -6,6 +6,7 @@ import Navbar from './component/navbar/navbar';
 
 import MainPage from './pages/main/mainPage';
 import PostPage from './pages/post/postPage';
+import AboutPage from './pages/about/aboutPage';
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,9 @@ function App() {
         </Route>
         <Route path="/post/:id">
           <PostPage />
+        </Route>
+        <Route exact path="/about">
+          <AboutPage />
         </Route>
       </QueryClientProvider>
     </>
