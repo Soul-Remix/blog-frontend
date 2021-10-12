@@ -5,24 +5,15 @@ import { useParams } from 'react-router-dom';
 import Loader from '../../component/loader/loader';
 import Post from '../../component/post/post';
 import CommentForm from '../../component/comment-form/comment-form';
-
-import validator from '../../utils/validator';
-
-import './postPage.css';
 import AddComment from '../../component/add-comment/add-comment';
 import CommentCard from '../../component/comment-card/comment-card';
+import MoreLike from '../../component/more-like/more-like';
 
-const fetchPosts = async (id) => {
-  const res = await fetch(
-    `https://guarded-bayou-18266.herokuapp.com/api/v1/post/${id}`
-  );
-  const data = await res.json();
-  if (res.status === 200) {
-    return data;
-  } else {
-    throw new Error(data.message);
-  }
-};
+import validator from '../../utils/validator';
+import fetchPost from '../../utils/fetchPost';
+import fetchPosts from '../../utils/fetchPosts';
+
+import './postPage.css';
 
 const PostPage = () => {
   const { id } = useParams();
@@ -32,9 +23,14 @@ const PostPage = () => {
   const [descriptionError, setDescriptionError] = useState('');
   const [writeComment, setWriteComment] = useState(false);
   const [commentError, setCommentError] = useState('');
+
+  const { data: posts } = useQuery('recent', fetchPosts, {
+    refetchOnWindowFocus: false,
+    staleTime: 10000,
+  });
   const { isLoading, isError, data, error } = useQuery(
     `${id}`,
-    () => fetchPosts(id),
+    () => fetchPost(id),
     {
       refetchOnWindowFocus: false,
       staleTime: 10000,
@@ -108,10 +104,11 @@ const PostPage = () => {
   if (isError) {
     return <h1>{error.message}</h1>;
   }
-  if (data) {
+  if (data && posts) {
     return (
       <>
         <Post data={data} />
+        <MoreLike posts={posts.posts} />
         <div className="comments-container" id="comments">
           <AddComment
             length={data.comments.length}

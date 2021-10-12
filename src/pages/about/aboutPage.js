@@ -2,29 +2,21 @@ import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 
 import Loader from '../../component/loader/loader';
-
+import fetchPosts from '../../utils/fetchPosts';
 import './aboutPage.css';
 
-const fetchRecent = async () => {
-  const res = await fetch(
-    `https://guarded-bayou-18266.herokuapp.com/api/v1/posts`
-  );
-  const data = res.json();
-  if (res.status == 200) {
-    return data;
-  } else {
-    throw new Error(res.statusText);
-  }
-};
-
 const AboutPage = () => {
-  const { data, isLoading, isError, error } = useQuery('about', fetchRecent);
+  const { data, isLoading, isError, error } = useQuery('recent', fetchPosts);
   if (isLoading) {
     return (
       <div className="center-container">
         <Loader />
       </div>
     );
+  }
+
+  if (isError) {
+    return <h1>{error.message}</h1>;
   }
   if (data) {
     return (
