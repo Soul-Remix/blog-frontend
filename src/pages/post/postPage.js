@@ -17,10 +17,10 @@ const fetchPosts = async (id) => {
     `https://guarded-bayou-18266.herokuapp.com/api/v1/post/${id}`
   );
   const data = await res.json();
-  if (data.status !== 200 || data.status !== 201) {
-    throw new Error(data.message);
-  } else {
+  if (res.status === 200) {
     return data;
+  } else {
+    throw new Error(data.message);
   }
 };
 
@@ -31,6 +31,7 @@ const PostPage = () => {
   const [userNameError, setUserNameError] = useState('');
   const [descriptionError, setDescriptionError] = useState('');
   const [writeComment, setWriteComment] = useState(false);
+  const [commentError, setCommentError] = useState('');
   const { isLoading, isError, data, error } = useQuery(
     `${id}`,
     () => fetchPosts(id),
@@ -66,6 +67,36 @@ const PostPage = () => {
     setWriteComment((old) => !old);
   };
 
+  const submitComment = async (e, userName, description) => {
+    e.preventDefault();
+    const res = await fetch(
+      `https://guarded-bayou-18266.herokuapp.com/api/v1/post/${id}/comment`,
+      {
+        method: 'PUT',
+        body: JSON.stringify({
+          userName,
+          description,
+        }),
+        headers: {
+          'content-type': 'application/json',
+        },
+      }
+    );
+    const comment = await res.json();
+    if (res.status === 200) {
+      data.comments.push(comment.comment);
+      setCommentError('');
+      setUserName('');
+      setDescription('');
+      setWriteComment(false);
+      return;
+    } else if (res.status === 500) {
+      setCommentError(res.statusText);
+      console.log(commentError);
+      return;
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="center-container">
@@ -76,7 +107,8 @@ const PostPage = () => {
 
   if (isError) {
     return <h1>{error.message}</h1>;
-  } else {
+  }
+  if (data) {
     return (
       <>
         <Post data={data} />
@@ -92,6 +124,8 @@ const PostPage = () => {
               description={description}
               descriptionError={descriptionError}
               onInputChange={onInputChange}
+              submitComment={submitComment}
+              commentError={commentError}
             />
           )}
           <CommentCard comments={data.comments} />

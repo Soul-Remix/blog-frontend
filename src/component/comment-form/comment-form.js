@@ -6,9 +6,11 @@ const CommentForm = ({
   onInputChange,
   userNameError,
   descriptionError,
+  submitComment,
+  commentError,
 }) => {
   return (
-    <form>
+    <form onSubmit={(e) => submitComment(e, userName, description)}>
       <div className="input">
         <label htmlFor="userName">
           Name:<span className="required">*</span>
@@ -51,6 +53,7 @@ const CommentForm = ({
       >
         Submit comment
       </button>
+      {commentError && <p className="required ">{commentError}</p>}
     </form>
   );
 };

@@ -67,3 +67,7 @@ form {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+form p {
+  text-align: center;
+}
