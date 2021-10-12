@@ -1,0 +1,9 @@
+.comments-container {
+  width: 90%;
+  max-width: 60ch;
+  margin: auto;
+  display: flex;
+  flex-flow: column wrap;
+  padding: 5px;
+  margin-bottom: 20px;
+}

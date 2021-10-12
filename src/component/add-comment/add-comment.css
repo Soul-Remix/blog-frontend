@@ -1,0 +1,36 @@
+.no-comment {
+  padding: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.add-comment-btn {
+  padding: 5px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: rgba(41, 98, 255, 1);
+  background-color: white;
+  border: 1px solid rgba(41, 98, 255, 1);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.symbol-add {
+  width: 2rem;
+  height: 2rem;
+  padding: 5px;
+  fill: currentColor;
+}
+
+.add-comment-btn:hover,
+.add-comment-btn:focus {
+  color: white;
+  background-color: rgba(41, 98, 255, 1);
+}

@@ -1,0 +1,30 @@
+.comment-card {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.comment-flex {
+  background-color: #f6f8fa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+.comment-user {
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin: 0;
+  color: #586069;
+}
+
+.comment-date {
+  color: #586069;
+}
+
+.comment-body {
+  border-radius: 5px;
+  padding: 15px;
+  margin: 0;
+}

@@ -9,15 +9,18 @@ import CommentForm from '../../component/comment-form/comment-form';
 import validator from '../../utils/validator';
 
 import './postPage.css';
+import AddComment from '../../component/add-comment/add-comment';
+import CommentCard from '../../component/comment-card/comment-card';
 
 const fetchPosts = async (id) => {
-  try {
-    const res = await fetch(
-      `https://guarded-bayou-18266.herokuapp.com/api/v1/post/${id}`
-    );
-    return await res.json();
-  } catch (err) {
-    console.log(err);
+  const res = await fetch(
+    `https://guarded-bayou-18266.herokuapp.com/api/v1/post/${id}`
+  );
+  const data = await res.json();
+  if (data.status !== 200 || data.status !== 201) {
+    throw new Error(data.message);
+  } else {
+    return data;
   }
 };
 
@@ -27,6 +30,7 @@ const PostPage = () => {
   const [description, setDescription] = useState('');
   const [userNameError, setUserNameError] = useState('');
   const [descriptionError, setDescriptionError] = useState('');
+  const [writeComment, setWriteComment] = useState(false);
   const { isLoading, isError, data, error } = useQuery(
     `${id}`,
     () => fetchPosts(id),
@@ -58,6 +62,10 @@ const PostPage = () => {
     }
   };
 
+  const showCommentForm = () => {
+    setWriteComment((old) => !old);
+  };
+
   if (isLoading) {
     return (
       <div className="center-container">
@@ -67,20 +75,27 @@ const PostPage = () => {
   }
 
   if (isError) {
-    return <h1>{error}</h1>;
-  }
-
-  if (data) {
+    return <h1>{error.message}</h1>;
+  } else {
     return (
       <>
         <Post data={data} />
-        <CommentForm
-          userName={userName}
-          userNameError={userNameError}
-          description={description}
-          descriptionError={descriptionError}
-          onInputChange={onInputChange}
-        />
+        <div className="comments-container" id="comments">
+          <AddComment
+            length={data.comments.length}
+            showComment={showCommentForm}
+          />
+          {writeComment && (
+            <CommentForm
+              userName={userName}
+              userNameError={userNameError}
+              description={description}
+              descriptionError={descriptionError}
+              onInputChange={onInputChange}
+            />
+          )}
+          <CommentCard comments={data.comments} />
+        </div>
       </>
     );
   }
