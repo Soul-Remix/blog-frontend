@@ -8,6 +8,7 @@ import CommentForm from '../../component/comment-form/comment-form';
 import AddComment from '../../component/add-comment/add-comment';
 import CommentCard from '../../component/comment-card/comment-card';
 import MoreLike from '../../component/more-like/more-like';
+import Error from '../../component/error/error';
 
 import validator from '../../utils/validator';
 import fetchPost from '../../utils/fetchPost';
@@ -102,7 +103,7 @@ const PostPage = () => {
   }
 
   if (isError) {
-    return <h1>{error.message}</h1>;
+    return <Error message={error.message} />;
   }
   if (data && posts) {
     return (

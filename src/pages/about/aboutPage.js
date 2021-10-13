@@ -3,10 +3,14 @@ import { Link } from 'react-router-dom';
 
 import Loader from '../../component/loader/loader';
 import fetchPosts from '../../utils/fetchPosts';
+import Error from '../../component/error/error';
 import './aboutPage.css';
 
 const AboutPage = () => {
-  const { data, isLoading, isError, error } = useQuery('recent', fetchPosts);
+  const { data, isLoading, isError, error } = useQuery('recent', fetchPosts, {
+    refetchOnWindowFocus: false,
+    staleTime: 10000000,
+  });
   if (isLoading) {
     return (
       <div className="center-container">
@@ -16,7 +20,7 @@ const AboutPage = () => {
   }
 
   if (isError) {
-    return <h1>{error.message}</h1>;
+    return <Error message={error.message} />;
   }
   if (data) {
     return (

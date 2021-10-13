@@ -3,17 +3,19 @@ import { useInfiniteQuery } from 'react-query';
 
 import Card from '../../component/card/card';
 import Loader from '../../component/loader/loader';
+import Error from '../../component/error/error';
 
 import './mainPage.css';
 
 const fetchPosts = async ({ pageParam = 1 }) => {
-  try {
-    const res = await fetch(
-      `https://guarded-bayou-18266.herokuapp.com/api/v1/posts?page=${pageParam}`
-    );
-    return await res.json();
-  } catch (err) {
-    console.log(err);
+  const res = await fetch(
+    `https://guarded-bayou-18266.herokuapp.com/api/v1/posts?page=${pageParam}`
+  );
+  const data = await res.json();
+  if (res.status === 200) {
+    return data;
+  } else {
+    throw new Error(data.message);
   }
 };
 
@@ -33,7 +35,7 @@ const MainPage = () => {
   }
 
   if (isError) {
-    return <h1>{error}</h1>;
+    return <Error message={error.message} />;
   }
 
   if (data) {
