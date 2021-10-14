@@ -14,7 +14,7 @@ const MoreLike = ({ posts }) => {
               image={x.image}
               comments={x.comments}
               id={x._id}
-              ket={x._id}
+              key={x._id}
             />
           );
         })}

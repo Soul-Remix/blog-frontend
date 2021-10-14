@@ -94,14 +94,6 @@ const PostPage = () => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="center-container">
-        <Loader />
-      </div>
-    );
-  }
-
   if (isError) {
     return <Error message={error.message} />;
   }
@@ -129,6 +121,12 @@ const PostPage = () => {
           <CommentCard comments={data.comments} />
         </div>
       </>
+    );
+  } else {
+    return (
+      <div className="center-container">
+        <Loader />
+      </div>
     );
   }
 };
