@@ -6,14 +6,9 @@ import './post.css';
 
 const Post = ({ data }) => {
   const { title, description, image, author, createdAt } = data;
-  const body = description.split('\\n');
-  const bodyArr = body.map((x, i) => {
-    return (
-      <p key={i} className="post-body">
-        {x}
-      </p>
-    );
-  });
+  const createMarkup = () => {
+    return { __html: description };
+  };
   return (
     <div className="post-container">
       <figure className="post-fig">
@@ -30,7 +25,10 @@ const Post = ({ data }) => {
       <hr />
       <div className="post-grid">
         <Social />
-        {bodyArr}
+        <article
+          className="post-body"
+          dangerouslySetInnerHTML={createMarkup()}
+        ></article>
       </div>
     </div>
   );
