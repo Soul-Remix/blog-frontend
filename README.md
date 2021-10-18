@@ -2,7 +2,7 @@
  
 A blog webapp built using React, Vanilla CSS & [my blog API](https://github.com/Soul-Remix/blog-api)    
 
-> [Live Page](https://github.com/Soul-Remix/blog-api)
+> [Live Page](https://soul-remix.github.io/blog-frontend/)
 
 [Blog API](https://github.com/Soul-Remix/blog-api)    
 [Blog Admin](https://github.com/Soul-Remix/blog-admin)
